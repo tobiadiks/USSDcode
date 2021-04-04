@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request,redirect, url_for, render_template
 import africastalking
 import os
 app = Flask(__name__)
@@ -55,6 +55,30 @@ def ussd_callback():
 
     return response
 
+@app.route('/send', methods=['POST','GET'])
+def sms_callback():
+    global response
+    session_id = request.values.get("sessionId", None)
+    service_code = request.values.get("serviceCode", None)
+    phone_number = request.values.get("phoneNumber", None)
+    sms_phone_number = []
+    sms_phone_number.append(phone_number)
+    
+    if request.method == 'POST':
+    	try:
+    		message= request.form['message']
+    		sms_response = sms.send(message,'+2348112806410')
+    		print(sms_response)
+    		return redirect(url_for('success'))
+    	except Exception as e:
+    	       print('Failed')
+    else:
+            message = request.args.get('message')
+            return render_template('message.html')
 
+@app.route('/success')
+def success():
+    	return('Successfully Sent')
+    	
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=os.environ.get("PORT"))
+    app.run(debug= True, host="0.0.0.0", port=os.environ.get("PORT"))
