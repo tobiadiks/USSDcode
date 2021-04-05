@@ -23,15 +23,15 @@ def ussd_callback():
     if text == "":
         # main menu
         response = "CON Welcome to Treach.\n To subscribe press 1\n"
-        response += "1. Subscribe\n"
-        response += "2. Receive more info\n"
+        response += "1. Get a Tip\n"
+        response += "2. Check your Subscription\n"
     elif text == "1":
         # sub menu 1
         try:
-            response = "END Thank you for subscribing to Treach.\n You will Receive an SMS shortly"
+            response = "END Treach Tip Coming through.\n You will Receive an SMS shortly"
             # sending the sms
             sms_response = sms.send(
-                "Thank you for believing in Treach.\n Do you know the important skills to know as a Teacher. Check out https://www.treach.com on how this was done.", sms_phone_number)
+                "Teaching is important.Teaching is changing.\nTeaching is hard.And at the intersection of these three truths lies the constant need for a variety of support for teachers–new teachers or experienced.\nIt’s one thing for trained educational psychologists to offer dry academic papers saying what the data says should happen, or for blogs and social media platforms to make recommendations.But it’s quite another when your colleagues make them–especially experienced colleagues dropping nuggets of wisdom to the next wave of teaching professionals trying to find their footing.", sms_phone_number)
             print(sms_response)
         except Exception as e:
             # show us what went wrong
@@ -43,7 +43,7 @@ def ussd_callback():
             response = "END An SMS will be sent shortly {}".format(phone_number)
             # sending the sms
             sms_response = sms.send(
-                "Thank you for believing in Treach.\n Treach is for teachers and educators. Check out https://www.treach.com on how this was done.", sms_phone_number)
+                "Your subscription remains 20 units. \n Enjoy Treach for free at https://treach.azurewebsites.net ", sms_phone_number)
             print(sms_response)
         except Exception as e:
             # show us what went wrong
